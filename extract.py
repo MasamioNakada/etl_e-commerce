@@ -1,10 +1,10 @@
 from json import load
-from utils import Utils, Load   
+from utils import Utils, Load
 
 utils = Utils()
 load = Load()
 
 
-class Etl:
+class extract:
     def __init__(self) -> None:
         pass

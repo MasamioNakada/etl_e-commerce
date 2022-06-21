@@ -4,19 +4,8 @@ import pandas as pd
 
 
 utils = Utils()
+data = Data(path="in")
 
 if __name__ == "__main__":
-    labels = utils.get_list_dir('in')
-    
-    data_1 = Data(os.path.join('in',labels[1]),'utf-8')
-
-    print(data_1.load_from_csv)
-
-
-    
-  
-
-
-
-
-
+    dict1 = data.load_datasets_from_csv(path="in")
+    print(dict1)
