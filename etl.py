@@ -1,6 +1,8 @@
-from utils import Utils
+from json import load
+from utils import Utils, Load   
 
 utils = Utils()
+load = Load()
 
 
 class Etl:

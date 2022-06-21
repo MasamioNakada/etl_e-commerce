@@ -1,11 +1,22 @@
-from utils import Utils
+import os
+from utils import Utils, Data
+import pandas as pd
+
 
 utils = Utils()
 
-
-def load_data(path):
-    return utils.load_from_csv(path)
-
-
 if __name__ == "__main__":
-    load_data("Datasets/Clientes.csv")
+    labels = utils.get_list_dir('in')
+    
+    data_1 = Data(os.path.join('in',labels[1]),'utf-8')
+
+    print(data_1.load_from_csv)
+
+
+    
+  
+
+
+
+
+
