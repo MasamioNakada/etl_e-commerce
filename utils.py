@@ -42,10 +42,13 @@ class DataSets:
             "Type of data": data_set.dtypes,
             "Null Values": data_set.isnull().sum(),
         }
+        print('')
+        print('')   
         print("=" * 20, f"Review {label}", "=" * 20)
         for name, func in parameters.items():
             print("-" * 20, name, "-" * 20)
             print(func)
+ 
 
 
 class Dataframe:
