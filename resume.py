@@ -1,15 +1,18 @@
-import numpy as np
-import pandas as pd
-
+from utils import DataSets, Data
 from load import Load
-from utils import DataSets, Data, Dataframe
 
-data = Data(path="in")
+
 load = Load(path="in")
-
+data = Data(path="in")
 
 labels = data.get_labels(path="in")
 data_dict = load.load_datasets_from_csv(path="in")
+
+
+def to_date_dataframe(data_dict, labels):
+    for label in labels:
+        DataSets(data_set=data_dict[label])
+    return data_dict
 
 
 def resume_dataframe(data_dict, labels):
@@ -20,5 +23,6 @@ def resume_dataframe(data_dict, labels):
 
 
 if __name__ == "__main__":
-    # resume_dataframe(data_dict, labels)
-    Dataframe(data_dict["Venta"]).dataset_date(data_dict["Venta"])
+
+    data = to_date_dataframe(data_dict, labels)
+    print(data)
