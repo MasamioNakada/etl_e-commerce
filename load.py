@@ -14,7 +14,7 @@ class Load:
         labels = Data(path=path).get_list_dir(path)
         dataset_dict = {}
         for name in labels:
-            if name == 'Localidades.csv':
+            if name == "Localidades.csv":
                 continue
             full_path = os.path.join(path, name)
             try:
@@ -24,8 +24,10 @@ class Load:
                     encoding="latin_1",
                 )
 
-                if name == 'Clientes.csv':
-                    dataset_dict[name[:-4]] = dataset_dict[name[:-4]].drop(columns="col10")
+                if name == "Clientes.csv":
+                    dataset_dict[name[:-4]] = dataset_dict[name[:-4]].drop(
+                        columns="col10"
+                    )
             except:
                 dataset_dict[name[:-4]] = pd.read_csv(
                     full_path,
@@ -33,6 +35,8 @@ class Load:
                     encoding="utf-8",
                 )
 
-                if name == 'Clientes.csv':
-                    dataset_dict[name[:-4]] = dataset_dict[name[:-4]].drop(columns="col10")
+                if name == "Clientes.csv":
+                    dataset_dict[name[:-4]] = dataset_dict[name[:-4]].drop(
+                        columns="col10"
+                    )
         return dataset_dict
