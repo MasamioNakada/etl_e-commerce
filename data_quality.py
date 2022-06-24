@@ -22,6 +22,14 @@ def null_percentage(df):
     return null_dict
 
 
+def null_all_percentage(df):
+    null_serie = null_review(df)
+    null_sum = null_serie.sum()
+    total = df.shape[0]
+    null_sum_percent = null_sum / total
+    return null_sum_percent
+
+
 def outlier_detect(df):
     ban_list = ["Telefono", "X", "Y", "Latitud", "Longitud"]
     z_dict = {}
@@ -50,5 +58,37 @@ def outlier_percent(df):
     return percent_outlier_dict
 
 
-def visual_report():
-    pass
+def outlier_all_percent(df):
+    outlier_dict = outlier_detect(df)
+    total = df.shape[0]
+    percent = 0
+    for i in range(len(outlier_dict.keys())):
+        percent += len(list(outlier_dict.values())[i]) * 100 / total
+    return percent
+
+
+def visual_report(df, label):
+    nulls = null_all_percentage(df)
+    outliers = outlier_all_percent(df)
+
+    sin_error = 100 - nulls - outliers
+
+    height = np.array([nulls, sin_error, outliers])
+    visual = ["no_error", "outlier", "null"]
+
+    fig, ax = plt.subplots()
+    bar = ax.bar(
+        visual, height, align="center", color=["#19C5AF", "#FDF400", "#E455AD"]
+    )
+
+    ax.set_title(f"Tabla {label}")
+    ax.set_ylabel("Porcentaje")
+
+    ax.bar_label(bar, label_type="center", padding=8, fontsize=12)
+    plt.savefig(f"out_plot/{label}_data_quality.png")
+    return plt.show()
+
+
+def visual_report_iter(data_dict, labels):
+    for label in labels:
+        visual_report(data_dict[label], label)

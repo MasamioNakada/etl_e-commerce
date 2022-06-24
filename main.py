@@ -6,6 +6,7 @@ import pandas as pd
 import resume
 import normalizar
 import export
+import data_quality as quality
 
 say = Say()
 load = Load(path="in")
@@ -32,8 +33,8 @@ if __name__ == "__main__":
     # imprimos el resumen de los dataframes
     resume.resume_dataframe(data_dict, labels)
 
-    # Calidad de los datos
+    # Report de Calidad de los datos
+    quality.visual_report_iter(data_dict, labels)
 
     # export to csv
     export.export_to_csv(data_dict, labels)
-    
