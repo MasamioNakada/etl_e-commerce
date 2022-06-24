@@ -1,5 +1,3 @@
-from genericpath import exists
-from sqlite3 import dbapi2
 from sqlalchemy import create_engine
 import pandas as pd
 from utils import Say
@@ -8,9 +6,11 @@ say = Say()
 
 username = "root"
 password = "root"
-host = "181.65.113.94"
+host = "localhost"
 dbname = "ecommerce"
-engine = create_engine(f"mysql+pymysql://{username}:{password}@{host}/{dbname}")
+engine = create_engine(
+    "mysql+mysqlconnector://{0}:{1}@{2}/{3}".format(username, password, host, dbname)
+)
 
 
 def insert_master(df):
