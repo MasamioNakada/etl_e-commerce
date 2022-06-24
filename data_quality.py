@@ -93,6 +93,7 @@ def visual_report(df, label):
 
     ax.bar_label(bar, label_type="center", padding=8, fontsize=12)
     plt.savefig(f"out_plot/{label}.png")
+    plt.close(fig)
     return plt.show()
 
 
