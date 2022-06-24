@@ -2,7 +2,9 @@ from utils import Data, Say, id_to_int_iter
 from load import Load
 import pandas as pd
 
+
 import resume
+import normalizar
 
 say = Say()
 load = Load(path="in")
@@ -23,6 +25,7 @@ if __name__ == "__main__":
     data_dict = id_to_int_iter(data_dict, labels)
 
     # normalizar los dataframes
+    data_dict = normalizar.normalizar_all(data_dict)
 
     # imprimos el resumen de los dataframes
     resume.resume_dataframe(data_dict, labels)
