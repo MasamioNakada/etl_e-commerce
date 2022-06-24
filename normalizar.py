@@ -35,10 +35,19 @@ def normalizacion_sucursales(df):
     df.Localidad = df.Localidad.apply(filter_localidad)
 
     for label in cord_label:
-        df[label] = df[label].replace(',','',regex=True)   
+        df[label] = df[label].replace(',','.',regex=True)   
         df[label] = df[label].astype(float)
         df[label] = df[label].apply(lambda x : -x if x > 0 else x )
    
+    return df
+
+def normalizacion_sucursales_num(df):
+    cord_label = ['Latitud','Longitud']
+    for label in cord_label:
+        df[label] = df[label].replace(',','.',regex=True)   
+        df[label] = df[label].astype(float)
+        df[label] = df[label].apply(lambda x : -x if x > 0 else x )
+
     return df
 
 
@@ -55,6 +64,14 @@ def normalizacion_clientes(df):
     df.Localidad = df.Localidad.apply(buenos_aires_filter)
     df.Localidad = df.Localidad.apply(filter_localidad)
 
+    df['Nombre_y_Apellido'] = df['Nombre_y_Apellido'].str.title()
+    df['Domicilio'] = df['Domicilio'].str.title()
+
+    df['Telefono'] = df['Telefono'].replace('-','', regex= True)
+    df['Telefono'] = df['Telefono'].replace('/','', regex= True)
+    df['Telefono'] = df['Telefono'].replace(' ','', regex= True)
+    df['Telefono'] = pd.to_numeric(df['Telefono'], errors='coerce',downcast='integer')
+    df['Edad'] = pd.to_numeric(df['Edad'])
 
     for label in cord_label:
         df[label] = df[label].replace(',','.',regex=True)   
@@ -64,6 +81,25 @@ def normalizacion_clientes(df):
 
     return df
 
+def normalizacion_clientes_num(df):
+    df['Nombre_y_Apellido'] = df['Nombre_y_Apellido'].str.title()
+    df['Domicilio'] = df['Domicilio'].str.title()
+
+    df['Telefono'] = df['Telefono'].replace('-','', regex= True)
+    df['Telefono'] = df['Telefono'].replace('/','', regex= True)
+    df['Telefono'] = df['Telefono'].replace(' ','', regex= True)
+    df['Telefono'] = pd.to_numeric(df['Telefono'], errors='coerce',downcast='integer')
+    df['Edad'] = pd.to_numeric(df['Edad'])
+    cord_label = ['X','Y']
+    for label in cord_label:
+        df[label] = df[label].replace(',','.',regex=True)   
+        df[label] = df[label].replace('',np.nan,regex=True)
+        df[label] = pd.to_numeric(df[label], errors='coerce')
+        df[label] = df[label].apply(lambda x : -x if x > 0 else x )
+
+    return df
+
+
 def normalizacion_proveedor(df):
     for i in df.columns[2:]:
         df[i] = df[i].str.title()
@@ -72,8 +108,9 @@ def normalizacion_proveedor(df):
 
 
 def normalizar_all(data_dict):
-    data_dict['Sucursales']=normalizacion_sucursales(data_dict['Sucursales'])
-    data_dict['Clientes'] = normalizacion_clientes(data_dict['Clientes'])
-    data_dict['Proveedores'] = normalizacion_proveedor(data_dict['Proveedores'])
-
+    #data_dict['Sucursales']=normalizacion_sucursales(data_dict['Sucursales'])
+    #data_dict['Clientes'] = normalizacion_clientes(data_dict['Clientes'])
+    #data_dict['Proveedores'] = normalizacion_proveedor(data_dict['Proveedores'])
+    data_dict['Sucursales'] = normalizacion_sucursales_num(data_dict['Sucursales'])
+    data_dict['Clientes'] = normalizacion_clientes_num(data_dict['Clientes'])
     return data_dict
