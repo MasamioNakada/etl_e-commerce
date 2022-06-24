@@ -5,6 +5,7 @@ import pandas as pd
 
 import resume
 import normalizar
+import sql
 
 say = Say()
 load = Load(path="in")
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     # convertimos las columnas fechas a objeto -> datetime
     resume.dataset_date_iter(data_dict, labels)
 
+    # todas las columnas tipo id se convierten en entero
     data_dict = id_to_int_iter(data_dict, labels)
 
     # normalizar los dataframes
@@ -29,3 +31,8 @@ if __name__ == "__main__":
 
     # imprimos el resumen de los dataframes
     resume.resume_dataframe(data_dict, labels)
+
+    # Calidad de los datos
+
+    # load to sql
+    sql.load_sql(data_dict, labels)
