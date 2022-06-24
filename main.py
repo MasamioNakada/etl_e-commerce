@@ -5,7 +5,6 @@ import pandas as pd
 
 import resume
 import normalizar
-import sql
 
 say = Say()
 load = Load(path="in")
@@ -33,6 +32,3 @@ if __name__ == "__main__":
     resume.resume_dataframe(data_dict, labels)
 
     # Calidad de los datos
-
-    # load to sql
-    sql.load_sql(data_dict, labels)
