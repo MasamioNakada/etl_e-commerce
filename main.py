@@ -33,8 +33,11 @@ if __name__ == "__main__":
     # imprimos el resumen de los dataframes
     resume.resume_dataframe(data_dict, labels)
 
-    # Report de Calidad de los datos
+    # Report de Calidad de los datos png
     quality.visual_report_iter(data_dict, labels)
+
+    # Report autogenerado markdown
+    quality.genarator_md_iter(labels)
 
     # export to csv
     export.export_to_csv(data_dict, labels)

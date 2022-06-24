@@ -1,9 +1,16 @@
+import os, sys
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+
+from markdownmaker.document import Document
+from markdownmaker.markdownmaker import *
 
 from scipy import stats
 import numpy as np
+
+from utils import Say
+
+say = Say()
 
 
 def null_review(df):
@@ -85,10 +92,36 @@ def visual_report(df, label):
     ax.set_ylabel("Porcentaje")
 
     ax.bar_label(bar, label_type="center", padding=8, fontsize=12)
-    plt.savefig(f"out_plot/{label}_data_quality.png")
+    plt.savefig(f"out_plot/{label}.png")
     return plt.show()
 
 
 def visual_report_iter(data_dict, labels):
     for label in labels:
         visual_report(data_dict[label], label)
+
+
+def generator_md(label):
+
+    doc = Document()
+
+    doc.add(Header("Report Data Quality "))
+    with HeaderSubLevel(doc):
+        doc.add(Header(f"{label} DataSet"))
+        doc.add(Image(url=f"../out_plot/{label}.png", alt_text=f"{label}"))
+
+    return doc.write()
+
+
+def genarator_md_iter(labels):
+
+    fd = os.open("report/reporte_calidad_datos.md", os.O_RDWR)
+    title = "# Reporte de ventas\n \n"
+    doc = ""
+    for label in labels:
+        doc += generator_md(label)
+
+    line = str.encode(title + doc)
+    os.write(fd, line)
+    os.close(fd)
+    return say.cow_says_good("reporte escrito exitosamente en ./report")
