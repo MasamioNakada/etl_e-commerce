@@ -5,6 +5,7 @@ import pandas as pd
 
 import resume
 import normalizar
+import export
 
 say = Say()
 load = Load(path="in")
@@ -32,3 +33,7 @@ if __name__ == "__main__":
     resume.resume_dataframe(data_dict, labels)
 
     # Calidad de los datos
+
+    # export to csv
+    export.export_to_csv(data_dict, labels)
+    

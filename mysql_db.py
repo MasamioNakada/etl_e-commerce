@@ -59,8 +59,8 @@ def read_query(connection, query):
         print(f"Error: '{err}'")
 
 
-usr_mysql = environ.get("mysql_usr")
-pw_mysql = environ.get("mysql_pw")
+user_mysql = environ.get("user_mysql")
+pass_mysql = environ.get("pass_mysql")
 host = "localhost"
 
-connection = create_server_connection(host, usr_mysql, pw_mysql)
+connection = create_server_connection(host, user_mysql, pass_mysql)

@@ -1,29 +1,32 @@
-from sqlalchemy import create_engine
-import pandas as pd
-from utils import Say
+import mysql_db as mysql
 
-say = Say()
+from os import environ
 
-username = "root"
-password = "root"
+user_mysql = environ.get("user_mysql")
+pass_mysql = environ.get("pass_mysql")
 host = "localhost"
-dbname = "ecommerce"
-engine = create_engine(
-    "mysql+mysqlconnector://{0}:{1}@{2}/{3}".format(username, password, host, dbname)
-)
+
+db_name = "ecommerce"
 
 
-def insert_master(df):
-    df.to_sql("Localidades", con=engine, if_exists="append", index="False")
+def load_to_database(labels):
+    # crear la conexion
+    engine = mysql.create_db_connection(host, user_mysql, pass_mysql)
 
+    # crear la base de datos
+    mysql.create_database(engine, f"CREATE DATABASE IF NOT EXISTS {db_name}")
+    mysql.execute_query(engine, "USE ecommerce")
 
-def insert_database(data_dict, labels):
-    for label in labels:
-        data_dict[label].to_sql(label, con=engine, if_exists="append")
+    # crear la concexion a la base de datos:
+    engine = mysql.create_db_connection(host, user_mysql, pass_mysql, db_name)
 
+    # crear las tabla maestra:
 
-def load_sql(data_dict, labels):
+    localidades_query = "CREATE TABLE IF NOT EXISTS Localidades(categoria VARCHAR(255),centroide_lat FLOAT(8),centroide_lon FLOAT(8), departamento_nombre  "
+    localidades_query = """
+    CREATE TABLE IF NOT EXISTS
+    """
 
-    df = pd.read_csv("in/Localidades.csv")
-    insert_master(df)
-    insert_database(data_dict, labels)
+    mysql.execute_query(
+        engine,
+    )
