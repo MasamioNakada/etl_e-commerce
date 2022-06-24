@@ -42,13 +42,12 @@ class DataSets:
             "Type of data": data_set.dtypes,
             "Null Values": data_set.isnull().sum(),
         }
-        print('')
-        print('')   
+        print("")
+        print("")
         print("=" * 20, f"Review {label}", "=" * 20)
         for name, func in parameters.items():
             print("-" * 20, name, "-" * 20)
             print(func)
- 
 
 
 class Dataframe:
@@ -57,14 +56,14 @@ class Dataframe:
 
     def dataset_date(self, dataframe):
         try:
-            dataframe.Fecha = pd.to_datetime(dataframe.Fecha, format="%Y-%m-%d")
+            dataframe.Fecha = pd.to_datetime(dataframe.Fecha, infer_datetime_format=True)
             dataframe.Fecha_Entrega = pd.to_datetime(
-                dataframe.Fecha_Entrega, format="%Y-%m-%d"
+                dataframe.Fecha_Entrega,  infer_datetime_format=True"
             )
             return dataframe.dytpes
         except:
             pass
-            Say.bart_says("Dataframe do not have [Fecha, Fecha_Entrega] columns")
+            print("Dataframe do not have [Fecha, Fecha_Entrega] columns")
 
 
 class Say:
