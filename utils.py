@@ -66,7 +66,7 @@ def id_to_int(dataframe):
 
 
 def id_to_int_iter(data_dict, labels):
-    '''Vuelve a entero las columnas Id'''
+    """Vuelve a entero las columnas Id"""
     for label in labels:
         data_dict[label] = id_to_int(data_dict[label])
     return data_dict
