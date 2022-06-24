@@ -19,6 +19,8 @@ class Data:
         labels_clean = []
 
         for label in labels:
+            if label == "Localidades.csv":
+                continue
             labels_clean.append(label[:-4])
 
         return labels_clean
@@ -37,7 +39,7 @@ class DataSets:
 
     def dataset_resume(self, data_set, label):
         parameters = {
-            "Overview": data_set.head(5),
+            "Overview": data_set.tail(),
             "Shape": data_set.shape,
             "Type of data": data_set.dtypes,
             "Null Values": data_set.isnull().sum(),
@@ -50,33 +52,50 @@ class DataSets:
             print(func)
 
 
-class Dataframe:
-    def __init__(self, dataframe):
-        self.dataframe = dataframe
+def find_id(columns_name: str) -> bool:
+    return ("Id" in columns_name) or ("ID" in columns_name)
 
-    def dataset_date(self, dataframe):
-        try:
-            dataframe.Fecha = pd.to_datetime(dataframe.Fecha, infer_datetime_format=True)
-            dataframe.Fecha_Entrega = pd.to_datetime(
-                dataframe.Fecha_Entrega,  infer_datetime_format=True"
-            )
-            return dataframe.dytpes
-        except:
-            pass
-            print("Dataframe do not have [Fecha, Fecha_Entrega] columns")
+
+def id_to_int(dataframe):
+    cols = list(dataframe.columns)
+    for col in cols:
+        if find_id(col):
+            dataframe[col].apply(int)
+
+    return dataframe
+
+
+def id_to_int_iter(data_dict, labels):
+    for label in labels:
+        data_dict[label] = id_to_int(data_dict[label])
+    return data_dict
 
 
 class Say:
 
     # -----------------------------------------------
-    def cow_says(self, str):
+    def cow_says_good(self, str):
+        """
+        Aquí va un string , y la vaquita lo dirá :v
+        """
         lenght = len(str)
         print(" _" + lenght * "_" + "_ ")
         print("< " + str + " > ")
         print(" -" + lenght * "-" + "- ")
         print("        \   ^__^ ")
         print("         \  (oo)\_______ ")
-        print("            (__)\       )\/\ ")
+        print("            (__)\  good )\/\ ")
+        print("                ||----w | ")
+        print("                ||     || ")
+
+    def cow_says_error(self, str):
+        lenght = len(str)
+        print(" _" + lenght * "_" + "_ ")
+        print("< " + str + " > ")
+        print(" -" + lenght * "-" + "- ")
+        print("        \   ^__^ ")
+        print("         \  (oo)\_______ ")
+        print("            (__)\  error )\/\ ")
         print("                ||----w | ")
         print("                ||     || ")
 
