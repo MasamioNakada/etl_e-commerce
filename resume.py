@@ -21,7 +21,7 @@ def dataset_date(dataframe):
 
       
 def dataset_date_iter(data_dict, labels):
-    '''Carga los archivos csv a dataframe'''
+    '''Convierte a fecha'''
     for label in labels:
         try:
             dataset_date(data_dict[label])
