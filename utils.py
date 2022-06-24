@@ -4,7 +4,6 @@ import pandas as pd
 import csv
 
 
-
 class Data:
     def __init__(self, path):
         self.path = path
@@ -20,7 +19,7 @@ class Data:
         labels_clean = []
 
         for label in labels:
-            if label == 'Localidades.csv':
+            if label == "Localidades.csv":
                 continue
             labels_clean.append(label[:-4])
 
@@ -45,15 +44,17 @@ class DataSets:
             "Type of data": data_set.dtypes,
             "Null Values": data_set.isnull().sum(),
         }
-        print('')
-        print('')   
+        print("")
+        print("")
         print("=" * 20, f"Review {label}", "=" * 20)
         for name, func in parameters.items():
             print("-" * 20, name, "-" * 20)
             print(func)
 
-def find_id(columns_name : str) -> bool:
-    return ('Id' in columns_name) or ('ID' in columns_name) 
+
+def find_id(columns_name: str) -> bool:
+    return ("Id" in columns_name) or ("ID" in columns_name)
+
 
 def id_to_int(dataframe):
     cols = list(dataframe.columns)
@@ -63,20 +64,20 @@ def id_to_int(dataframe):
 
     return dataframe
 
+
 def id_to_int_iter(data_dict, labels):
     for label in labels:
-        data_dict[label]=id_to_int(data_dict[label])
+        data_dict[label] = id_to_int(data_dict[label])
     return data_dict
-
 
 
 class Say:
 
     # -----------------------------------------------
     def cow_says_good(self, str):
-        '''
+        """
         Aquí va un string , y la vaquita lo dirá :v
-        '''
+        """
         lenght = len(str)
         print(" _" + lenght * "_" + "_ ")
         print("< " + str + " > ")
@@ -86,7 +87,6 @@ class Say:
         print("            (__)\  good )\/\ ")
         print("                ||----w | ")
         print("                ||     || ")
-        
 
     def cow_says_error(self, str):
         lenght = len(str)
@@ -97,7 +97,7 @@ class Say:
         print("         \  (oo)\_______ ")
         print("            (__)\  error )\/\ ")
         print("                ||----w | ")
-        print("                ||     || ")    
+        print("                ||     || ")
 
     def bart_says(self, str):
         print("⌈" + len(str) * "¯" + "⌉")

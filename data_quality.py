@@ -16,16 +16,3 @@ def null_percentage(dataframe):
         null_dict[null_serie.index[i]] = percent
 
     return null_dict
-
-
-
-
-    
-
-
-
-    
-
-
-
-    
